@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by fy1 on 15/05/28.
@@ -20,11 +21,13 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
     AppsHelper apphelper;
     LayoutInflater inflater;
     Object thiiz;
+    Context  ctx;
 
     public AppsAdaptor(Context context, PackageManager pm, Boolean userApps){
         this.userApps = userApps;
         apphelper = new AppsHelper(context, pm);
         thiiz = this;
+        this.ctx = context;
         apphelper.addFreezStatChangedListener(new AppStat.FreezStatChangedListener(){
             @Override
             public void onFreezStatChanged() {
@@ -81,7 +84,9 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
         dt.sw.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AppStat)v.getTag()).TogEnabled();
+                AppStat as = ((AppStat)v.getTag());
+                as.TogEnabled();
+                Toast.makeText(ctx, as.longName, Toast.LENGTH_SHORT).show();
                 //apphelper.sort();
             }
         });
