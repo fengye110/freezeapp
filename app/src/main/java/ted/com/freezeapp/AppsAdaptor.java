@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -67,6 +68,7 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
             dt.shortname = (TextView) view.findViewById(R.id.iv_short_name);
             dt.longname = (TextView) view.findViewById(R.id.iv_longname);
             dt.sw = (Switch)view.findViewById(R.id.sw_enabled);
+            dt.uninstall_btn = (ImageButton) view.findViewById(R.id.btn_uninstall);
 
             view.setTag(dt);
         }
@@ -91,6 +93,17 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
             }
         });
 
+
+        //uninstaller app
+        dt.uninstall_btn.setTag(as);
+        dt.uninstall_btn.setOnClickListener( new  View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                AppStat as = ((AppStat)v.getTag());
+                Toast.makeText(ctx, "uninstall "+as.longName, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
     }
 
@@ -104,6 +117,7 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
         public TextView longname;
         public Switch sw;
         public TextView shortname;
+        public ImageButton uninstall_btn;
         public AppStat as;
     }
 

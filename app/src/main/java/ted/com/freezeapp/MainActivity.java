@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
         sysAppAdapter = new AppsAdaptor(getApplicationContext(), getPackageManager(),false);
 
         //lv_app.setAdapter(useAppAdapter);
-        curAdapter = useAppAdapter;
+        curAdapter = sysAppAdapter;
         lv_app.setAdapter(curAdapter);
         lv_app.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
