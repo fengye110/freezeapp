@@ -48,6 +48,7 @@ public class AppStat implements Comparable<AppStat>{
     public void TogEnabled(){
         isEnabled = !isEnabled;
         trigerEvent();
+        ShellHelper.pm_freez(longName, !isEnabled);
     }
 
     public Boolean isFreezed(){
