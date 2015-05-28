@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -49,6 +51,11 @@ public class AppsHelper {
                     as.addFreezStateChangedListener(listener);
             }
         }
+        sort();
+    }
+
+    public void sort(){
+        Collections.sort(apps);
     }
 
     public void addFreezStatChangedListener(AppStat.FreezStatChangedListener listener){

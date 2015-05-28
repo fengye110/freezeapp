@@ -82,6 +82,7 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
             @Override
             public void onClick(View v) {
                 ((AppStat)v.getTag()).TogEnabled();
+                //apphelper.sort();
             }
         });
 
@@ -103,5 +104,6 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
 
     public void TogEnabled(TagData td){
         td.as.TogEnabled();
+        //apphelper.sort();
     }
 }
