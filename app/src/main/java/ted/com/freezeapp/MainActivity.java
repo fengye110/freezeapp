@@ -7,7 +7,9 @@ import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -26,6 +28,12 @@ public class MainActivity extends ActionBarActivity {
 
         //lv_app.setAdapter(useAppAdapter);
         lv_app.setAdapter(sysAppAdapter);
+        lv_app.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),"cliked", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
