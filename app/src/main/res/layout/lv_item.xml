@@ -42,7 +42,7 @@
         android:layout_toRightOf="@+id/iv_icon"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textStyle="bold|normal"
+        android:textStyle="normal"
         android:textSize="20dp"
         android:textColor="#000" />
 

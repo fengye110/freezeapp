@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class AppsHelper {
     public ArrayList<AppStat> apps = new ArrayList<AppStat>();
+    AppStat.FreezStatChangedListener listener = null;
 
     Context context;
     PackageManager pm;
@@ -44,8 +45,14 @@ public class AppsHelper {
 
             if(as.isUserApp() == isuser){
                 apps.add(as);
+                if(this.listener != null)
+                    as.addFreezStateChangedListener(listener);
             }
         }
+    }
+
+    public void addFreezStatChangedListener(AppStat.FreezStatChangedListener listener){
+        this.listener = listener;
     }
     public void loadSysAppsInfo(){
         _loadAppsInfo(false);

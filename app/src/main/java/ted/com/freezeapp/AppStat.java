@@ -1,17 +1,30 @@
 package ted.com.freezeapp;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.EventObject;
+import java.util.Objects;
 
 /**
  * Created by fy1 on 15/05/28.
  */
 public class AppStat {
-
+    ArrayList<FreezStatChangedListener> listeners = new ArrayList<FreezStatChangedListener>();
     String shortName;
     String longName;
     String apkpath;
     boolean isUserApp;
     boolean isEnabled;
+
+    private void trigerEvent(){
+        Log.d("---", String.format("%s enabled=%b", longName, isEnabled));
+        for(FreezStatChangedListener l : listeners){
+            l.onFreezStatChanged();
+        }
+    }
 
     public AppStat(){
         shortName = "";
@@ -25,7 +38,15 @@ public class AppStat {
     }
 
     public void setEnabled(Boolean enabled){
-        this.isEnabled = enabled;
+        if(this.isEnabled != enabled) {
+            this.isEnabled = enabled;
+            trigerEvent();
+        }
+    }
+
+    public void TogEnabled(){
+        isEnabled = !isEnabled;
+        trigerEvent();
     }
 
     public Boolean isFreezed(){
@@ -35,4 +56,13 @@ public class AppStat {
     public Boolean isUserApp(){
         return isUserApp;
     }
+
+    public void addFreezStateChangedListener(FreezStatChangedListener listener){
+        listeners.add(listener);
+    }
+
+    public static interface FreezStatChangedListener extends EventListener {
+        public void onFreezStatChanged();
+    }
+
 }

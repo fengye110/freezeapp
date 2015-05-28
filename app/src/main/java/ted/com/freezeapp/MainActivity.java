@@ -17,6 +17,7 @@ public class MainActivity extends ActionBarActivity {
     ListView lv_app;
     AppsAdaptor useAppAdapter;
     AppsAdaptor sysAppAdapter;
+    AppsAdaptor curAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +28,14 @@ public class MainActivity extends ActionBarActivity {
         sysAppAdapter = new AppsAdaptor(getApplicationContext(), getPackageManager(),false);
 
         //lv_app.setAdapter(useAppAdapter);
-        lv_app.setAdapter(sysAppAdapter);
+        curAdapter = useAppAdapter;
+        lv_app.setAdapter(curAdapter);
         lv_app.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),"cliked", Toast.LENGTH_LONG).show();
+                AppsAdaptor.TagData td = (AppsAdaptor.TagData)view.getTag();
+                Toast.makeText(getApplicationContext(), td.as.longName, Toast.LENGTH_SHORT).show();
+                curAdapter.TogEnabled(td);
             }
         });
     }

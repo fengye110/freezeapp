@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -13,15 +14,24 @@ import android.widget.TextView;
 /**
  * Created by fy1 on 15/05/28.
  */
-public class AppsAdaptor extends BaseAdapter {
+public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChangedListener{
 
     Boolean userApps;
     AppsHelper apphelper;
     LayoutInflater inflater;
+    Object thiiz;
 
     public AppsAdaptor(Context context, PackageManager pm, Boolean userApps){
         this.userApps = userApps;
         apphelper = new AppsHelper(context, pm);
+        thiiz = this;
+        apphelper.addFreezStatChangedListener(new AppStat.FreezStatChangedListener(){
+            @Override
+            public void onFreezStatChanged() {
+                ((AppsAdaptor)thiiz).notifyDataSetChanged();
+            }
+        });
+
         if(this.userApps)
             apphelper.loadUserAppsInfo();
         else
@@ -54,6 +64,7 @@ public class AppsAdaptor extends BaseAdapter {
             dt.shortname = (TextView) view.findViewById(R.id.iv_short_name);
             dt.longname = (TextView) view.findViewById(R.id.iv_longname);
             dt.sw = (Switch)view.findViewById(R.id.sw_enabled);
+
             view.setTag(dt);
         }
 
@@ -63,10 +74,23 @@ public class AppsAdaptor extends BaseAdapter {
         dt.icon.setImageDrawable(apphelper.icon(as.longName));
         dt.longname.setText(as.longName);
         dt.shortname.setText(as.shortName);
+        dt.as = as;
 
         dt.sw.setChecked(!as.isFreezed());
+        dt.sw.setTag(as);
+        dt.sw.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((AppStat)v.getTag()).TogEnabled();
+            }
+        });
 
         return view;
+    }
+
+    @Override
+    public void onFreezStatChanged() {
+        this.notifyDataSetChanged();
     }
 
     public static class TagData {
@@ -74,5 +98,10 @@ public class AppsAdaptor extends BaseAdapter {
         public TextView longname;
         public Switch sw;
         public TextView shortname;
+        public AppStat as;
+    }
+
+    public void TogEnabled(TagData td){
+        td.as.TogEnabled();
     }
 }
