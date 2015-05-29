@@ -16,14 +16,23 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 public class ShellHelper {
-    public static void do_pm_freez(String longname, Boolean freez){
-        Shell rootshell;
+
+    static void thread_run_cmd(final String cmdstr){
+        new Thread( new Runnable() {
+            @Override
+            public void run() {
+                _run_cmd(cmdstr);
+            }
+        }).start();
+    }
+
+    static void _run_cmd(String cmdstr){
         try {
+            Shell rootshell;
             rootshell = RootShell.getShell(true);
             if(rootshell == null) {
                 return;
             }
-            String cmdstr = String.format("pm %s  %s", freez?"disable":"enable", longname);
             Log.d("---", "rootshell: cmd=" + cmdstr);
 
             Command cmd = new Command(0, cmdstr){
@@ -46,17 +55,18 @@ public class ShellHelper {
         } catch (RootDeniedException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public static void uninstall_app(String name){
+        String cmdstr = String.format("pm uninstall  %s", name);
+        thread_run_cmd(cmdstr);
     }
 
 
+
     public static void pm_freez(String a_longname, Boolean a_freez){
-        final  String longname = a_longname;
-        final  Boolean freez = a_freez;
-        new Thread( new Runnable() {
-            @Override
-            public void run() {
-                do_pm_freez(longname, freez);
-            }
-        }).start();
+        String cmdstr = String.format("pm %s  %s", a_freez?"disable":"enable", a_longname);
+        thread_run_cmd(cmdstr);
     }
 }

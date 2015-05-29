@@ -1,10 +1,14 @@
 package ted.com.freezeapp;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -12,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.daimajia.swipe.SwipeLayout;
 
 /**
  * Created by fy1 on 15/05/28.
@@ -23,6 +29,16 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
     LayoutInflater inflater;
     Object thiiz;
     Context  ctx;
+
+    View.OnClickListener uninstaler_btn_clicked_clicked = null;
+
+    void _loadAppsInfo()
+    {
+        if(this.userApps)
+            apphelper.loadUserAppsInfo();
+        else
+            apphelper.loadSysAppsInfo();
+    }
 
     public AppsAdaptor(Context context, PackageManager pm, Boolean userApps){
         this.userApps = userApps;
@@ -36,11 +52,21 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
             }
         });
 
-        if(this.userApps)
-            apphelper.loadUserAppsInfo();
-        else
-            apphelper.loadSysAppsInfo();
+        _loadAppsInfo();
         inflater = LayoutInflater.from(context);
+    }
+
+
+    public void setUninstalerHandler(View.OnClickListener l){
+        uninstaler_btn_clicked_clicked = l;
+    }
+
+    public void uninstall_app(TagData td){
+        ShellHelper.uninstall_app(td.as.longName);
+        apphelper.apps.remove(td.as);
+        //_loadAppsInfo();
+        //notifyDataSetInvalidated();
+        notifyDataSetChanged();
     }
 
     @Override
@@ -71,6 +97,14 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
             dt.uninstall_btn = (ImageButton) view.findViewById(R.id.btn_uninstall);
 
             view.setTag(dt);
+
+            dt.swiplayout = (SwipeLayout)view.findViewById(R.id.swipelayout);
+            dt.swiplayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+            dt.swiplayout.setDragEdge(SwipeLayout.DragEdge.Right);
+
+            if( !this.userApps){
+                dt.swiplayout.setSwipeEnabled(false);
+            }
         }
 
         dt = (TagData)view.getTag();
@@ -95,14 +129,8 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
 
 
         //uninstaller app
-        dt.uninstall_btn.setTag(as);
-        dt.uninstall_btn.setOnClickListener( new  View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                AppStat as = ((AppStat)v.getTag());
-                Toast.makeText(ctx, "uninstall "+as.longName, Toast.LENGTH_SHORT).show();
-            }
-        });
+        dt.uninstall_btn.setTag(dt);
+        dt.uninstall_btn.setOnClickListener( uninstaler_btn_clicked_clicked);
 
         return view;
     }
@@ -119,6 +147,7 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
         public TextView shortname;
         public ImageButton uninstall_btn;
         public AppStat as;
+        public SwipeLayout swiplayout;
     }
 
     public void TogEnabled(TagData td){
