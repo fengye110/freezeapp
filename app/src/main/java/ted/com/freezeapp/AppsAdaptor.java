@@ -40,6 +40,12 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
             apphelper.loadSysAppsInfo();
     }
 
+    public void reflush()
+    {
+        _loadAppsInfo();
+        notifyDataSetChanged();
+    }
+
     public AppsAdaptor(Context context, PackageManager pm, Boolean userApps){
         this.userApps = userApps;
         apphelper = new AppsHelper(context, pm);
