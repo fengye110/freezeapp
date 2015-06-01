@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -71,6 +73,10 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,6 +94,8 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Log.d("---", "setting clicked\n");
+            AppsHelper.saveDisableAppInfosToSDCard(getPackageManager());
             return true;
         }
 
