@@ -40,8 +40,8 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
         // toolbar
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(""); //must set before this.setSupportActionBar call
         this.setSupportActionBar(toolbar);
-        toolbar.setTitle("");
 
 
         // pager init
