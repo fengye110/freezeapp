@@ -31,4 +31,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile files('libs/RootShell.jar')
     compile files('libs/AndroidSwipeLayout-v1.1.8.jar')
+    compile 'it.neokree:MaterialTabs:0.11'
 }

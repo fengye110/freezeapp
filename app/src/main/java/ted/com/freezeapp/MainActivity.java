@@ -4,6 +4,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -15,64 +19,48 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import it.neokree.materialtabs.MaterialTab;
+import it.neokree.materialtabs.MaterialTabHost;
+import it.neokree.materialtabs.MaterialTabListener;
 
-public class MainActivity extends ActionBarActivity {
 
-    ListView lv_app;
-    AppsAdaptor useAppAdapter;
-    AppsAdaptor sysAppAdapter;
-    AppsAdaptor curAdapter;
+public class MainActivity extends ActionBarActivity implements MaterialTabListener{
 
-    View.OnClickListener uninstaler_handler = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            final AppsAdaptor.TagData td = (AppsAdaptor.TagData)v.getTag();
-            td.swiplayout.toggle();
-            Log.d("---", "uninstall clicked");
+    MaterialTabHost tabHost;
+    ViewPager pager;
+    XPagerAdapter pg_adapter;
 
-            final Dialog d = new AlertDialog.Builder(MainActivity.this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setMessage(String.format(" Do you want to uninstall \n\n\t%s (%s)" , td.as.shortName, td.as.longName))
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //Toast.makeText(MainActivity.this, "No", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //Toast.makeText(MainActivity.this, "yo", Toast.LENGTH_SHORT).show();
-                            curAdapter.uninstall_app(td);
-                            //lv_app.invalidateViews();
-                            //lv_app.invalidate();
-                        }
-                    }).create();
-            d.show();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        lv_app =  (ListView)findViewById(R.id.lv_apps);
-        useAppAdapter = new AppsAdaptor(getApplicationContext(), getPackageManager(),true);
-        sysAppAdapter = new AppsAdaptor(getApplicationContext(), getPackageManager(),false);
-        useAppAdapter.setUninstalerHandler(uninstaler_handler);
-        sysAppAdapter.setUninstalerHandler(uninstaler_handler);
 
-        //lv_app.setAdapter(useAppAdapter);
-        curAdapter = useAppAdapter;
-        lv_app.setAdapter(curAdapter);
-        lv_app.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+        // pager init
+        pager = (ViewPager) findViewById(R.id.pager);
+        pg_adapter = new XPagerAdapter(getSupportFragmentManager());
+        pager.setAdapter(pg_adapter);
+        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AppsAdaptor.TagData td = (AppsAdaptor.TagData)view.getTag();
-                Toast.makeText(getApplicationContext(), td.as.longName, Toast.LENGTH_SHORT).show();
-                curAdapter.TogEnabled(td);
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+
+            @Override
+            public void onPageSelected(int position) {
+                tabHost.setSelectedNavigationItem(position);
             }
+
+            @Override
+            public void onPageScrollStateChanged(int state) { return ; }
+
         });
+
+        // table host initial
+        tabHost = (MaterialTabHost) findViewById(R.id.tabHost);
+        for (int i=0; i<2;i++) {
+            tabHost.addTab( tabHost.newTab().setText(pg_adapter.Title(i))
+                                            .setTabListener(this)
+                );
+        }
     }
 
 
@@ -96,5 +84,50 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTabSelected(MaterialTab materialTab) {
+        pager.setCurrentItem(materialTab.getPosition());
+    }
+
+    @Override
+    public void onTabReselected(MaterialTab materialTab) {
+
+    }
+
+    @Override
+    public void onTabUnselected(MaterialTab materialTab) {
+
+    }
+
+    public class XPagerAdapter extends FragmentStatePagerAdapter {
+
+        public XPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position){
+                case 1:
+                    return AppsInfoFragment.newInstance(true);
+                case 0:
+                    return AppsInfoFragment.newInstance(false);
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        public String Title(int position){
+            if(position == 1)
+                return "UserApps";
+            else
+                return "SystemApps";
+        }
     }
 }
