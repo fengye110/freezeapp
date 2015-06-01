@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
@@ -29,12 +30,19 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     MaterialTabHost tabHost;
     ViewPager pager;
     XPagerAdapter pg_adapter;
+    Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // toolbar
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        this.setSupportActionBar(toolbar);
+        toolbar.setTitle("");
+
 
         // pager init
         pager = (ViewPager) findViewById(R.id.pager);
