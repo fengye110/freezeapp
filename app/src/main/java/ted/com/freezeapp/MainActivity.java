@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
@@ -107,9 +108,11 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
             return true;
         }
 
-//        if(id == R.id.action_refresh){
-//            return true;
-//        }
+        if(id == R.id.action_share){
+            Intent   tent = new Intent(this, InstallAppsFromSDActivity.class);
+            startActivity(tent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

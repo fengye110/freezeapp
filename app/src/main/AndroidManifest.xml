@@ -18,6 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".InstallAppsFromSDActivity"
+            android:label="@string/title_activity_install_apps_from_sd" >
+        </activity>
     </application>
 
 </manifest>
