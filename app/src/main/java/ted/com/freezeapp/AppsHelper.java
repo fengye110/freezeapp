@@ -77,7 +77,6 @@ public class AppsHelper {
         _loadAppsInfo(true);
     }
 
-
     public Drawable icon(String name)
     {
         Drawable icon = null;
@@ -88,6 +87,18 @@ public class AppsHelper {
         }
         return icon;
     }
+
+    static public Drawable loadicon(String name, PackageManager pm)
+    {
+        Drawable icon = null;
+        try {
+            icon = pm.getApplicationIcon(name);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return icon;
+    }
+
 
     public static void saveDisableAppInfosToSDCard(PackageManager pm) {
         String state = Environment.getExternalStorageState();

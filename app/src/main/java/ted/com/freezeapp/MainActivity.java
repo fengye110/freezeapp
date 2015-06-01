@@ -1,5 +1,6 @@
 package ted.com.freezeapp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -19,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -75,6 +77,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
     @Override
     protected void onPause() {
+        AppsHelper.saveDisableAppInfosToSDCard(getPackageManager());
         super.onPause();
     }
 
@@ -93,11 +96,20 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Log.d("---", "setting clicked\n");
-            AppsHelper.saveDisableAppInfosToSDCard(getPackageManager());
+        if (id == R.id.action_prev_disabled_sys_apps) {
+            Dialog dialog = new Dialog(MainActivity.this);
+            dialog.setContentView(R.layout.loaddb_dialog);
+            dialog.setTitle("prev disabled sys app");
+            ListView lv = (ListView) dialog.findViewById(R.id.lv_loaddisable_list);
+            BaseAdapter ad = new LoadDisabledAppsAdaptor(dialog.getContext(), getPackageManager());
+            lv.setAdapter(ad);
+            dialog.show();
             return true;
         }
+
+//        if(id == R.id.action_refresh){
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

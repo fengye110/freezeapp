@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import ted.com.freezeapp.dummy.DummyContent;
 
 /**
  * A fragment representing a list of Items.
@@ -30,7 +29,7 @@ public class AppsInfoFragment extends Fragment implements AbsListView.OnItemClic
     private Boolean showUserApps;
     private AbsListView mListView;
 
-    private AppsAdaptor mAdapter;
+    public AppsAdaptor mAdapter;
 
     public static AppsInfoFragment newInstance(Boolean a_showUserApps) {
         AppsInfoFragment fragment = new AppsInfoFragment();
@@ -72,6 +71,7 @@ public class AppsInfoFragment extends Fragment implements AbsListView.OnItemClic
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
         mListView.setOnScrollListener(this);
+        view.setTag(mAdapter);
 
         return view;
     }

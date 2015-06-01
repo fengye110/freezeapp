@@ -80,6 +80,8 @@
             android:layout_marginTop="16dp"
             android:textOff="F"
             android:textOn="O"
-            android:maxWidth="60dp" />
+            android:maxWidth="60dp"
+            android:clickable="true"
+            />
     </RelativeLayout>
 </com.daimajia.swipe.SwipeLayout>
