@@ -80,4 +80,8 @@ public class AppsHelper {
         }
         return icon;
     }
+
+    public void saveDisableAppInfosToSDCard(){
+
+    }
 }

@@ -133,9 +133,9 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
         public String Title(int position){
             if(position == 1)
-                return "UserApps";
+                return getString(R.string.UserApps);
             else
-                return "SystemApps";
+                return getString(R.string.SystemApps);
         }
     }
 }
