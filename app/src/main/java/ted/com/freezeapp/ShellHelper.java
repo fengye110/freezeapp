@@ -17,19 +17,19 @@ import java.util.concurrent.TimeoutException;
 
 public class ShellHelper {
 
-    static void thread_run_cmd(final String cmdstr){
+    static void thread_run_cmd(final String cmdstr, final Boolean root){
         new Thread( new Runnable() {
             @Override
             public void run() {
-                _run_cmd(cmdstr);
+                _run_cmd(cmdstr, root);
             }
         }).start();
     }
 
-    static void _run_cmd(String cmdstr){
+    static void _run_cmd(String cmdstr, Boolean root){
         try {
             Shell rootshell;
-            rootshell = RootShell.getShell(true);
+            rootshell = RootShell.getShell(root);
             if(rootshell == null) {
                 return;
             }
@@ -60,13 +60,13 @@ public class ShellHelper {
 
     public static void uninstall_app(String name){
         String cmdstr = String.format("pm uninstall  %s", name);
-        thread_run_cmd(cmdstr);
+        thread_run_cmd(cmdstr, false);
     }
 
 
 
     public static void pm_freez(String a_longname, Boolean a_freez){
         String cmdstr = String.format("pm %s  %s", a_freez?"disable":"enable", a_longname);
-        thread_run_cmd(cmdstr);
+        thread_run_cmd(cmdstr, true);
     }
 }
