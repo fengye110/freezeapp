@@ -22,13 +22,14 @@ import com.daimajia.swipe.SwipeLayout;
 /**
  * Created by fy1 on 15/05/28.
  */
-public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChangedListener{
+public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChangedListener, SwipeLayout.SwipeListener{
 
     Boolean userApps;
     AppsHelper apphelper;
     LayoutInflater inflater;
     Object thiiz;
     Context  ctx;
+    SwipeLayout openedSwipeLayout = null;
 
     View.OnClickListener uninstaler_btn_clicked_clicked = null;
 
@@ -107,6 +108,7 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
             dt.swiplayout = (SwipeLayout)view.findViewById(R.id.swipelayout);
             dt.swiplayout.setShowMode(SwipeLayout.ShowMode.PullOut);
             dt.swiplayout.setDragEdge(SwipeLayout.DragEdge.Right);
+            dt.swiplayout.addSwipeListener(this);
 
             if( !this.userApps){
                 dt.swiplayout.setSwipeEnabled(false);
@@ -144,6 +146,43 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
     @Override
     public void onFreezStatChanged() {
         this.notifyDataSetChanged();
+    }
+
+    public void closeOpendSwipeLayotu(){
+        if(openedSwipeLayout != null){
+            openedSwipeLayout.close();
+            openedSwipeLayout = null;
+        }
+    }
+
+    @Override
+    public void onStartOpen(SwipeLayout swipeLayout) {
+        closeOpendSwipeLayotu();
+        openedSwipeLayout = swipeLayout;
+    }
+
+    @Override
+    public void onOpen(SwipeLayout swipeLayout) {
+    }
+
+    @Override
+    public void onStartClose(SwipeLayout swipeLayout) {
+
+    }
+
+    @Override
+    public void onClose(SwipeLayout swipeLayout) {
+        swipeLayout.close();
+    }
+
+    @Override
+    public void onUpdate(SwipeLayout swipeLayout, int i, int i1) {
+
+    }
+
+    @Override
+    public void onHandRelease(SwipeLayout swipeLayout, float v, float v1) {
+
     }
 
     public static class TagData {

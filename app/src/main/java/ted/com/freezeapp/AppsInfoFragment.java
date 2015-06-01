@@ -23,7 +23,7 @@ import ted.com.freezeapp.dummy.DummyContent;
 /**
  * A fragment representing a list of Items.
  */
-public class AppsInfoFragment extends Fragment implements AbsListView.OnItemClickListener,View.OnClickListener{
+public class AppsInfoFragment extends Fragment implements AbsListView.OnItemClickListener,View.OnClickListener, AbsListView.OnScrollListener{
 
     private static final String ARG_ISUSER_APP = "is_USER_APP";
 
@@ -71,6 +71,7 @@ public class AppsInfoFragment extends Fragment implements AbsListView.OnItemClic
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
+        mListView.setOnScrollListener(this);
 
         return view;
     }
@@ -123,5 +124,15 @@ public class AppsInfoFragment extends Fragment implements AbsListView.OnItemClic
                     }
                 }).create();
         d.show();
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        mAdapter.closeOpendSwipeLayotu();
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
     }
 }
