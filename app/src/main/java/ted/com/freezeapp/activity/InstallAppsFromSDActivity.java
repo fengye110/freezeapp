@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ public class InstallAppsFromSDActivity extends ActionBarActivity {
     EditText tv_dir;
     String dirpath;
     Toolbar tb;
+    Handler loadatahandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +71,20 @@ public class InstallAppsFromSDActivity extends ActionBarActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //Toast.makeText(getApplicationContext(), v.getText(), Toast.LENGTH_LONG).show();
-                    String dirpath = (String) v.getText();
-                    madpater.loadData(dirpath);
-                    return true;
+                    final String dirpath = v.getText().toString();
+                    loadatahandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            madpater.loadData(dirpath);
+                        }
+                    });
+                    return false;
                 }
                 return false;
             }
         });
+        tv_dir.clearFocus();
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         madpater.loadData(dirpath);
     }

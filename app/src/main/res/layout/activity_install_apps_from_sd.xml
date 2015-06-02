@@ -19,11 +19,12 @@
                 android:text="/sdcard/backups/apps"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
-                android:focusable="false"
+                android:focusable="true"
                 android:maxLines="1"
                 android:lines="1"
                 android:singleLine="true"
-                android:imeOptions="actionDone"/>
+                android:imeOptions="actionDone"
+                android:focusableInTouchMode="true" />
 
         </RelativeLayout>
 
