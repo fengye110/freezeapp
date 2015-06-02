@@ -1,4 +1,4 @@
-package ted.com.freezeapp;
+package ted.com.freezeapp.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,11 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import ted.com.freezeapp.other.AppStat;
+import ted.com.freezeapp.Adpters.AppsAdaptor;
+import ted.com.freezeapp.R;
+import ted.com.freezeapp.other.TagData;
 
 
 /**
@@ -88,7 +90,7 @@ public class AppsInfoFragment extends Fragment implements AbsListView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        AppsAdaptor.TagData td = (AppsAdaptor.TagData)view.getTag();
+        TagData td = (TagData)view.getTag();
         Toast.makeText(getActivity().getApplicationContext(), td.as.longName, Toast.LENGTH_SHORT).show();
         mAdapter.TogEnabled(td);
     }
@@ -101,7 +103,7 @@ public class AppsInfoFragment extends Fragment implements AbsListView.OnItemClic
             return;
         }
 
-        final AppsAdaptor.TagData td = (AppsAdaptor.TagData)tag;
+        final TagData td = (TagData)tag;
         td.swiplayout.toggle();
         Log.d("---", "uninstall clicked");
 

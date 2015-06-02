@@ -1,4 +1,4 @@
-package ted.com.freezeapp;
+package ted.com.freezeapp.helper;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -10,14 +10,14 @@ import android.os.Environment;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import ted.com.freezeapp.other.AppStat;
 
 /**
  * Created by fy1 on 15/05/28.

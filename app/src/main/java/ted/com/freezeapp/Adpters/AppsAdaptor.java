@@ -1,16 +1,11 @@
-package ted.com.freezeapp;
+package ted.com.freezeapp.Adpters;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -18,6 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.swipe.SwipeLayout;
+
+import ted.com.freezeapp.other.AppStat;
+import ted.com.freezeapp.R;
+import ted.com.freezeapp.helper.ShellHelper;
+import ted.com.freezeapp.helper.AppsHelper;
+import ted.com.freezeapp.other.TagData;
 
 /**
  * Created by fy1 on 15/05/28.
@@ -185,15 +186,6 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
 
     }
 
-    public static class TagData {
-        public ImageView icon;
-        public TextView longname;
-        public Switch sw;
-        public TextView shortname;
-        public ImageButton uninstall_btn;
-        public AppStat as;
-        public SwipeLayout swiplayout;
-    }
 
     public void TogEnabled(TagData td){
         td.as.TogEnabled();

@@ -1,4 +1,4 @@
-package ted.com.freezeapp;
+package ted.com.freezeapp.helper;
 
 /**
  * Created by fy1 on 15/05/28.

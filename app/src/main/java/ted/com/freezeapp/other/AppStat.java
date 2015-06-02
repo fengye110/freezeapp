@@ -1,24 +1,22 @@
-package ted.com.freezeapp;
+package ted.com.freezeapp.other;
 
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.EventListener;
-import java.util.EventObject;
-import java.util.Objects;
+
+import ted.com.freezeapp.helper.ShellHelper;
 
 /**
  * Created by fy1 on 15/05/28.
  */
 public class AppStat implements Comparable<AppStat>{
     ArrayList<FreezStatChangedListener> listeners = new ArrayList<FreezStatChangedListener>();
-    String shortName;
-    String longName;
-    String apkpath;
-    boolean isUserApp;
-    boolean isEnabled;
+    public String shortName;
+    public String longName;
+    public String apkpath;
+    public boolean isUserApp;
+    public boolean isEnabled;
 
     private void trigerEvent(){
         Log.d("---", String.format("%s enabled=%b", longName, isEnabled));

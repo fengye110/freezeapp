@@ -1,9 +1,11 @@
-package ted.com.freezeapp;
+package ted.com.freezeapp.activity;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import ted.com.freezeapp.R;
 
 
 public class InstallAppsFromSDActivity extends ActionBarActivity {

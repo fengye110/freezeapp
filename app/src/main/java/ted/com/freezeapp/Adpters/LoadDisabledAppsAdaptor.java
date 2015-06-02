@@ -1,4 +1,4 @@
-package ted.com.freezeapp;
+package ted.com.freezeapp.Adpters;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -15,6 +15,11 @@ import android.widget.Toast;
 import com.daimajia.swipe.SwipeLayout;
 
 import java.util.ArrayList;
+
+import ted.com.freezeapp.other.AppStat;
+import ted.com.freezeapp.R;
+import ted.com.freezeapp.helper.AppsHelper;
+import ted.com.freezeapp.other.TagData;
 
 /**
  * Created by fy1 on 15/05/28.
@@ -93,16 +98,6 @@ public class LoadDisabledAppsAdaptor extends BaseAdapter {
         });
 
         return view;
-    }
-
-    public static class TagData {
-        public ImageView icon;
-        public TextView longname;
-        public Switch sw;
-        public TextView shortname;
-        public ImageButton uninstall_btn;
-        public AppStat as;
-        public SwipeLayout swiplayout;
     }
 
     public void TogEnabled(TagData td){
