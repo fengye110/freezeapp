@@ -1,5 +1,7 @@
 package ted.com.freezeapp.other;
 
+import android.content.pm.ApplicationInfo;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ public class AppStat implements Comparable<AppStat>{
     public String apkpath;
     public boolean isUserApp;
     public boolean isEnabled;
+    public Drawable micon;
+    public ApplicationInfo ainfo;
 
     private void trigerEvent(){
         Log.d("---", String.format("%s enabled=%b", longName, isEnabled));

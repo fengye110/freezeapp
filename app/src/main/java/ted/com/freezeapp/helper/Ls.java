@@ -13,7 +13,7 @@ public class Ls {
         if(d.exists() && d.isDirectory()){
             for (File f :d.listFiles()){
                 if(f.isFile() && f.getName().endsWith(end)){
-                    files.add(f.getAbsolutePath());
+                    files.add(f.getAbsolutePath().toLowerCase());
                 }
             }
         }

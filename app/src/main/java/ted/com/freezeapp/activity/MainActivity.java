@@ -1,7 +1,10 @@
 package ted.com.freezeapp.activity;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -81,6 +84,39 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         return true;
     }
 
+    Dialog progressDialog;
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what == -1){
+                progressDialog.dismiss();
+            }
+        }
+    };
+
+    boolean progressbardialog(){
+        progressDialog = new Dialog(MainActivity.this);
+        progressDialog.setContentView(R.layout.install_process_dialog);
+        progressDialog.setTitle("progess");
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        //new Thread(new Runnable() {
+         //   @Override
+          //  public void run() {
+           //     try {
+            //        int i =19;
+             //       Thread.sleep(4000);
+              //      Message msg = Message.obtain();
+               //     msg.what = i--;
+                //    msg.obj = "haha";
+               //     //handler.sendMessage(msg);
+                //} catch (InterruptedException e) {
+                 //   e.printStackTrace();
+                //}
+            //}
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -101,9 +137,9 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         }
 
         if(id == R.id.action_share){
-            Intent   tent = new Intent(this, InstallAppsFromSDActivity.class);
-            startActivity(tent);
-            return true;
+            return progressbardialog();
+            //Intent   tent = new Intent(this, InstallAppsFromSDActivity.class);
+            //startActivity(tent);
         }
 
         return super.onOptionsItemSelected(item);
