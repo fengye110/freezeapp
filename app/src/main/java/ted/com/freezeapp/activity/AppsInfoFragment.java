@@ -104,10 +104,18 @@ public class AppsInfoFragment extends Fragment implements AbsListView.OnItemClic
         }
 
         final TagData td = (TagData)tag;
+        deleteDialog(td);
         td.swiplayout.toggle();
-        Log.d("---", "uninstall clicked");
+    }
 
-        final Dialog d = new AlertDialog.Builder(getActivity().getApplicationContext())
+    void deleteDialog2(final TagData td){
+        Dialog d = new Dialog(getActivity());
+        d.setTitle("hah");
+        d.setCancelable(false);
+        d.show();
+    }
+    void deleteDialog(final TagData td){
+        Dialog d = new AlertDialog.Builder(getActivity())
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setMessage(String.format(" Do you want to uninstall \n\n\t%s (%s)" , td.as.shortName, td.as.longName))
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

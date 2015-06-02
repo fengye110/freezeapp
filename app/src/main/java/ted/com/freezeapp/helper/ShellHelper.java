@@ -60,11 +60,11 @@ public class ShellHelper {
 
     public static void install_app(String apk){
         String cmdstr = String.format("pm install  %s", apk);
-        _run_cmd(cmdstr, false);
+        _run_cmd(cmdstr, true);
     }
     public static void uninstall_app(String name){
         String cmdstr = String.format("pm uninstall  %s", name);
-        thread_run_cmd(cmdstr, false);
+        thread_run_cmd(cmdstr, true);
     }
 
 
