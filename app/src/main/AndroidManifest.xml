@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
 
     <application
         android:allowBackup="true"
@@ -23,6 +22,10 @@
         <activity
             android:name=".activity.InstallAppsFromSDActivity"
             android:label="@string/title_activity_install_apps_from_sd" >
+        </activity>
+        <activity
+            android:name=".activity.HubActivity"
+            android:label="@string/title_activity_hub" >
         </activity>
     </application>
 
