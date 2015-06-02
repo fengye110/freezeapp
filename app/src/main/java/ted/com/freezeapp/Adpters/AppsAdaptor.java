@@ -48,9 +48,9 @@ public class AppsAdaptor extends BaseAdapter implements AppStat.FreezStatChanged
         notifyDataSetChanged();
     }
 
-    public AppsAdaptor(Context context, PackageManager pm, Boolean userApps){
+    public AppsAdaptor(Context context, Boolean userApps){
         this.userApps = userApps;
-        apphelper = new AppsHelper(context, pm);
+        apphelper = new AppsHelper(context, context.getPackageManager());
         thiiz = this;
         this.ctx = context;
         apphelper.addFreezStatChangedListener(new AppStat.FreezStatChangedListener(){

@@ -57,7 +57,7 @@ public class AppsInfoFragment extends Fragment implements AbsListView.OnItemClic
         }
 
         // create adapter
-        mAdapter = new AppsAdaptor(getActivity().getApplicationContext(), getActivity().getPackageManager(),showUserApps);
+        mAdapter = new AppsAdaptor(getActivity().getApplicationContext(),showUserApps);
         mAdapter.setUninstalerHandler(this);
     }
 

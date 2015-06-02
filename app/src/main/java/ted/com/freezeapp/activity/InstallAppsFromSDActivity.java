@@ -46,6 +46,7 @@ public class InstallAppsFromSDActivity extends ActionBarActivity {
 
         tb = (Toolbar) findViewById(R.id.toolbar_install_app);
         tb.setTitle("");
+        tb.setNavigationIcon(R.drawable.arrow_back);
         setSupportActionBar(tb);
 
         // create list adpater
@@ -86,7 +87,12 @@ public class InstallAppsFromSDActivity extends ActionBarActivity {
         tv_dir.clearFocus();
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        madpater.loadData(dirpath);
+        loadatahandler.post(new Runnable() {
+            @Override
+            public void run() {
+                madpater.loadData(dirpath);
+            }
+        });
     }
 
     @Override
@@ -174,6 +180,9 @@ public class InstallAppsFromSDActivity extends ActionBarActivity {
         if (id == R.id.action_install) {
             do_installSelectedApps();
             return true;
+        }
+        if(id == android.R.id.home){
+            this.finish();
         }
 
         return super.onOptionsItemSelected(item);

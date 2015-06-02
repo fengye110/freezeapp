@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
@@ -94,27 +95,11 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         }
     };
 
-    boolean progressbardialog(){
-        progressDialog = new Dialog(MainActivity.this);
-        progressDialog.setContentView(R.layout.install_process_dialog);
-        progressDialog.setTitle("progess");
-        progressDialog.show();
-        progressDialog.setCancelable(false);
-        //new Thread(new Runnable() {
-         //   @Override
-          //  public void run() {
-           //     try {
-            //        int i =19;
-             //       Thread.sleep(4000);
-              //      Message msg = Message.obtain();
-               //     msg.what = i--;
-                //    msg.obj = "haha";
-               //     //handler.sendMessage(msg);
-                //} catch (InterruptedException e) {
-                 //   e.printStackTrace();
-                //}
-            //}
-        return true;
+
+    public void getWifiPasswd()
+    {
+        String path = "/data/misc/wifi/wpa_supplicant.conf";
+        Toast.makeText(getApplicationContext(), path,Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -137,9 +122,16 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         }
 
         if(id == R.id.action_share){
-            return progressbardialog();
             //Intent   tent = new Intent(this, InstallAppsFromSDActivity.class);
             //startActivity(tent);
+        }
+        if(id == R.id.action_startInstallActivy){
+            Intent   tent = new Intent(this, InstallAppsFromSDActivity.class);
+            startActivity(tent);
+        }
+        if(id == R.id.action_getWifiPwD){
+            getWifiPasswd();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

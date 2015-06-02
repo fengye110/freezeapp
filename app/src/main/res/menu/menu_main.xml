@@ -11,6 +11,12 @@
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 
+    <item android:id="@+id/action_startInstallActivy" android:title="installApks"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/action_getWifiPwD" android:title="wifi passwd"
+        android:orderInCategory="100" app:showAsAction="never" />
+
     <item android:id="@+id/action_prev_disabled_sys_apps" android:title="saved freez apps"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
