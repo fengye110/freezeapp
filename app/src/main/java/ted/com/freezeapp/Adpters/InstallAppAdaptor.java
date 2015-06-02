@@ -34,8 +34,8 @@ public class InstallAppAdaptor extends BaseAdapter {
     LayoutInflater inflater;
     Context  ctx;
     SwipeLayout openedSwipeLayout = null;
-    ArrayList<AppStat> appsInDir =  new ArrayList<>();
-    ArrayList<String> toInstallApps =  new ArrayList<>();
+    public ArrayList<AppStat> appsInDir =  new ArrayList<>();
+    public  ArrayList<String> toInstallApps =  new ArrayList<>();
     PackageManager pm;
 
     public void reflush()
@@ -69,6 +69,7 @@ public class InstallAppAdaptor extends BaseAdapter {
                 as.ainfo = ainfo;
                 as.isEnabled = true;
                 appsInDir.add(as);
+                toInstallApps.add(as.apkpath);
             }
         }
 
